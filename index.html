@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#11131d">
+<title>Eclipse: Legends Awakened — v0.3.0</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">✦</span><div><b>ECLIPSE</b><small>LEGENDS AWAKENED</small></div></div>
+    <div class="resources"><span>✧ <b id="gold">250</b></span><span>◆ <b id="gems">15</b></span></div>
+  </header>
+  <main>
+    <section class="hero-banner panel">
+      <div class="banner-copy"><span class="eyebrow">CAPÍTULO 01 · O DESPERTAR</span><h1>As sombras<br><em>estão chegando.</em></h1><p>Reúna seus guerreiros. O destino do reino começa aqui.</p><button class="primary" id="goBattle">Entrar em combate <span>→</span></button></div>
+      <div class="banner-orb">✦</div>
+      <div class="banner-sigil">E</div>
+    </section>
+
+    <section class="section-head"><div><span class="eyebrow">SUA JORNADA</span><h2>Acampamento</h2></div><span class="chapter-pill">FASE <b id="stageLabel">1-1</b></span></section>
+    <section class="stats-grid">
+      <div class="stat-card"><span class="stat-icon">⚔</span><small>PODER DA EQUIPE</small><b id="power">1.240</b></div>
+      <div class="stat-card"><span class="stat-icon">⌛</span><small>RECOMPENSAS OFFLINE</small><b id="offlineStatus">Ativas</b></div>
+      <div class="stat-card"><span class="stat-icon">♜</span><small>HERÓIS</small><b id="heroCount">3 / 20</b></div>
+    </section>
+
+    <section class="section-head"><div><span class="eyebrow">SEU ESQUADRÃO</span><h2>Heróis em destaque</h2></div><button class="text-btn" data-tab="heroes">Ver todos →</button></section>
+    <section class="heroes-row" id="featuredHeroes"></section>
+
+    <section class="section-head"><div><span class="eyebrow">PROGRESSÃO</span><h2>Forja de cartas</h2></div><button class="text-btn" data-tab="cards">Abrir →</button></section>
+    <section class="forge-teaser panel"><div class="forge-symbol">⟡</div><div><b>Combine habilidades</b><p>Duas cartas iguais se tornam uma versão mais poderosa.</p></div><span class="teaser-arrow">→</span></section>
+  </main>
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-tab="home"><span>⌂</span><small>Início</small></button>
+    <button class="nav-item" data-tab="battle"><span>⚔</span><small>Batalha</small></button>
+    <button class="nav-item" data-tab="heroes"><span>♙</span><small>Heróis</small></button>
+    <button class="nav-item" data-tab="cards"><span>▤</span><small>Cartas</small></button>
+    <button class="nav-item" data-tab="bag"><span>▣</span><small>Bolsa</small></button>
+  </nav>
+</div>
+
+<div class="screen hidden" id="battleScreen">
+  <header class="screen-header"><button class="back-btn" data-home>←</button><div><small class="eyebrow">CAPÍTULO 01</small><b>Floresta Esquecida</b></div><span class="chapter-pill" id="battleStage">1-1</span></header>
+  <div class="battle-scene">
+    <div class="scene-label">ÁREA DE CONFRONTO</div>
+    <div class="enemy-wrap"><div class="enemy-aura"></div><img class="enemy-sprite" id="enemySprite" src="assets/enemies/wolf.svg" alt="Inimigo"><div class="enemy-name" id="enemyName">Lobo das Cinzas</div><div class="hp-track"><div id="enemyHp" class="hp-fill enemy-fill"></div></div><small id="enemyHpText">120 / 120</small></div>
+    <div class="battle-ground"></div>
+    <div class="party-sprites"><div class="fighter"><span>🛡️</span><small>KAEL</small></div><div class="fighter"><span>🧙</span><small>LYRA</small></div><div class="fighter"><span>🏹</span><small>NYX</small></div></div>
+  </div>
+  <div class="team-health"><div><b>VITALIDADE DA EQUIPE</b><span id="teamHpText">300 / 300</span></div><div class="hp-track"><div id="teamHp" class="hp-fill team-fill"></div></div></div>
+  <div class="battle-info"><span id="turnLabel">SEU TURNO</span><span id="battleLog">Escolha uma carta para atacar.</span></div>
+  <div class="hand-area"><div class="hand-title"><b>Cartas de habilidade</b><small>Toque para usar · Energia <strong id="energy">3</strong>/3</small></div><div class="hand" id="hand"></div></div>
+  <div class="battle-actions"><button class="secondary" id="endTurn">Encerrar turno</button><button class="primary" id="ultimate">✦ Ultimate</button></div>
+</div>
+
+<div class="screen hidden" id="heroesScreen">
+  <header class="screen-header"><button class="back-btn" data-home>←</button><div><small class="eyebrow">COLEÇÃO</small><b>Seus heróis</b></div></header>
+  <div class="screen-content"><p class="muted">Guerreiros que caminham ao seu lado.</p><div class="hero-list" id="heroList"></div><div class="section-head"><div><span class="eyebrow">TREINAMENTO</span><h2>Despertar dos heróis</h2></div></div><p class="muted">Invista ouro para fortalecer cada integrante do esquadrão.</p><div id="trainingList" class="hero-list"></div></div>
+</div>
+<div class="screen hidden" id="cardsScreen">
+  <header class="screen-header"><button class="back-btn" data-home>←</button><div><small class="eyebrow">APRIMORAMENTO</small><b>Forja de cartas</b></div></header>
+  <div class="screen-content"><p class="muted">Selecione duas cartas iguais para fundi-las e elevar seu nível.</p><div id="cardInventory" class="card-inventory"></div><button class="primary wide" id="mergeBtn">Combinar cartas selecionadas</button><p class="hint" id="mergeHint">Selecione duas cartas do mesmo tipo e nível.</p></div>
+</div>
+<div class="screen hidden" id="bagScreen">
+  <header class="screen-header"><button class="back-btn" data-home>←</button><div><small class="eyebrow">RECURSOS</small><b>Bolsa e recompensas</b></div></header>
+  <div class="screen-content"><div class="loot-panel panel"><span class="loot-icon">✧</span><div><b>Recompensas de jornada</b><p>O grupo continua explorando enquanto você está fora.</p></div></div><div class="resource-line"><span>Ouro</span><b id="bagGold">250</b></div><div class="resource-line"><span>Fragmentos</span><b id="bagGems">15</b></div><div class="resource-line"><span>Cartas disponíveis</span><b id="bagCards">6</b></div><div class="section-head"><div><span class="eyebrow">EQUIPAMENTOS</span><h2>Arsenal</h2></div></div><div id="equipmentList" class="equipment-list"></div><button class="secondary wide" id="claimIdle">Recolher recompensas offline</button><button class="text-btn wide" id="resetSave">Reiniciar progresso</button></div>
+</div>
+
+<div class="modal hidden" id="rewardModal"><div class="modal-card"><div class="reward-icon">✦</div><span class="eyebrow">VITÓRIA</span><h2>Mais um passo na jornada!</h2><p id="rewardText">Você recebeu recompensas.</p><button class="primary wide" id="closeReward">Continuar</button></div></div>
+<script src="js/main.js"></script>
+</body>
+</html>
